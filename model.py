@@ -60,7 +60,7 @@ def multi_res_u_net(pretrained_weights = None,input_size = (256,256,1),lr=0.001)
     res_path3 = res_path(res_block3,128,3)
     concat = layers.Concatenate()([upsample,res_path3])
 
-    res_block7 = mlti_res_block(concat,31,72,106,212)
+    res_block7 = mlti_res_block(concat,31,72,106,209)
     upsample = layers.Upsampling2D()(res_block7)
 
     res_path2 = res_path(res_block2,64,2)
@@ -75,7 +75,7 @@ def multi_res_u_net(pretrained_weights = None,input_size = (256,256,1),lr=0.001)
     res_block9 = mlti_res_block(concat,8,17,26,51)
     sigmoid = Conv2D(1,(1,1),padding = 'same',activation="sigmoid")(res_block9)
 
-    model = tf.keras.Modedl(inputs,sigmoid)
+    model = tf.keras.Model(inputs,sigmoid)
     modle.compile(tf.keras.optimizer.Adam(lr),loss = 'binary_crossentropy', metrics = ['accuracy'])
 
     if(pretrained_weights):
